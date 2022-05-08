@@ -20,6 +20,10 @@ class User(db.Model):
         db.session.add(self)
         db.session.commit()
 
+    def delete_user(self):
+        db.session.add(self)
+        db.session.commit()    
+
 
 
 
