@@ -2,7 +2,8 @@ from . import db
 
 
 
-
+# id,username,password,email
+# create user,save user, delete user
 
 class User(db.Model):
     __tablename__ = 'users'
