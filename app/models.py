@@ -51,4 +51,24 @@ class User(UserMixin,db.Model):
 
 class Pitch(db.Model):
     __tablename__ = 'pitches'  
-    id = db.Column(db.Integer, primary_key=True)      
+    id = db.Column(db.Integer, primary_key=True) 
+
+
+
+class Comment(db.Model):
+    __tablename__ = 'comments'
+
+
+
+
+
+
+class Upvote(db.Model): 
+    __tablename__ = 'upvotes'
+
+
+
+
+
+class Downvote(db.Model):
+    __tablename__ = 'downvotes'               
