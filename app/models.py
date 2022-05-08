@@ -16,5 +16,12 @@ class User(db.Model):
     pass_secure = db.Column(db.String(255),nullable=False)
 
 
+    def save_user(self):
+        db.session.add(self)
+        db.session.commit()
+
+
+
+
     def __repr__(self):
         return f'User {self.username}'
