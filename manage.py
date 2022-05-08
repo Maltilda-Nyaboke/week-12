@@ -1,10 +1,7 @@
-from distutils.cmd import Command
-from multiprocessing import managers
-
-from pip import main
-from app import create_app
+from app import create_app,db
 from flask import Flask
 from flask_script import Manager,Server
+from app.models import User
 
 
 
@@ -13,6 +10,10 @@ app = create_app('development')
 
 manager= Manager(app)
 manager.add_command('server', Server)
+
+@manager.shell
+def make_shell_context():
+    return dict(app = app,db = db,User = User )
 
 
 
