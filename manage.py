@@ -12,3 +12,8 @@ app= Flask(__name__)
 
 manager= Manager(app)
 manager.add.command(Server, Manager)
+
+
+
+if __name__ == '__main__':
+    manager.run()
