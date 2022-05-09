@@ -4,6 +4,7 @@ from flask_login import login_required,current_user
 from .forms import UpdateProfile,pitchForm,commentForm
 from .. import db,photos
 from ..models import  User, Pitch, Comment, Upvote, Downvote
+import markdown2 
 
 
 
@@ -68,6 +69,25 @@ def update_pic(uname):
         user.profile_pic_path = path
         db.session.commit()
     return redirect(url_for('main.profile',uname=uname))
+
+
+
+@main.route('/pitch/<int:id>')
+def single_comment(id):
+    pitch=Pitch.query.get(id)
+    if pitch is None:
+        abort(404)
+    format_pitch = markdown2.markdown(pitch.user_pitch,extras=["code-friendly", "fenced-code-blocks"])
+    return render_template('pitch.html',pitch = pitch,format_pitch=format_pitch)
+
+
+@main.route('/pitch/<int:id>')
+def single_comment(id):
+    comment=Comment.query.get(id)
+    if comment is None:
+        abort(404)
+    format_comment = markdown2.markdown(comment.user_comment,extras=["code-friendly", "fenced-code-blocks"])
+    return render_template('comment.html',comment = comment,format_comment=format_comment)    
 
 
 

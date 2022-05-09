@@ -22,3 +22,23 @@ class CommentForm(FlaskForm):
 class UpdateProfile(FlaskForm):
     bio = TextAreaField('Tell us about you.',validators = [DataRequired()])
     submit = SubmitField('Submit')
+
+
+class PitchForm(FlaskForm):
+
+ title = StringField('Pitch title',validators=[DataRequired()])
+
+ pitch = TextAreaField('User pitch')
+
+ submit = SubmitField('Submit')
+
+
+
+class CommentForm(FlaskForm):
+
+ title = StringField('Pitch title',validators=[DataRequired()])
+
+ comment = TextAreaField('User comment')
+
+ submit = SubmitField('Submit') 
+    
