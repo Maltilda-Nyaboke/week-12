@@ -1,7 +1,7 @@
 from . import main
 from flask import render_template,request,url_for,abort,redirect
 from flask_login import login_required,current_user
-from .forms import UpdateProfile
+from .forms import UpdateProfile,pitchForm,commentForm
 from .. import db,photos
 from ..models import  User, Pitch, Comment, Upvote, Downvote
 
@@ -15,6 +15,9 @@ def index():
     business = Pitch.query.filter_by(category='business').all()
 
     return render_template('index.html',health=health,comedy=comedy,business=business,pitches=pitches)
+
+@main.route('/new_pitch',methods=['GET', 'POST'])  
+@login_required
 
 @main.route('/user/<uname>') 
 def profile(uname):
