@@ -18,6 +18,17 @@ def index():
 
 @main.route('/new_pitch',methods=['GET', 'POST'])  
 @login_required
+def new_pitch():
+    form = pitchForm()
+    if form.validate_on_submit():
+        title = form.title.data
+        pitch = form.post.data
+        category = form.category.data
+        user_id = current_user._get_current_object().id
+        new_pitch = Pitch(pitch=pitch,title =title ,category=category, user_id=user_id)
+        new_pitch.save()
+        return redirect(url_for('main.index'))
+    return render_template('pitch.html', form=form)
 
 @main.route('/user/<uname>') 
 def profile(uname):

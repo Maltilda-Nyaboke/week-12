@@ -11,11 +11,13 @@ from wtforms import ValidationError
 
 class pitchForm(FlaskForm):
     title = StringField('Title',validators=[DataRequired])
-    pitch = StringField('Pitch',validators=[DataRequired])
-    category = SelectField('Category',choices=[('health','health'), ('comedy','comedy'), ('business','business')],validators=[DataRequired])
+    pitch = TextAreaField('write your pitch here',validators=[DataRequired])
+    category = SelectField('Choose your prefered category',choices=[('health','health'), ('comedy','comedy'), ('business','business')],validators=[DataRequired])
     submit = SubmitField('Pitch')
 
-
+class CommentForm(FlaskForm):
+    comment = TextAreaField('write your comment here    ', validators=[DataRequired()])
+    submit = SubmitField('Pitch')
 
 class UpdateProfile(FlaskForm):
     bio = TextAreaField('Tell us about you.',validators = [DataRequired()])
