@@ -16,10 +16,10 @@ def register():
         db.session.add(user)
         db.session.commit()
 
-        mail_message("Welcome to the pitch","email/welcome_user",user.email,user=user)
+        mail_message("Welcome to PitchAura","email/welcome_user",user.email,user=user)
         return redirect(url_for('auth.login')) 
     title = "New account"
-    return render_template('auth/register.html',registration_form =form,title=title) 
+    return render_template('auth/register.html',registration_form =form) 
 
 
 
@@ -33,7 +33,7 @@ def login():
             return redirect(request.args.get('next') or url_for('main.index'))
         
         flash('Invalid username or Password')
-        title = "Pitch login"
+        title = "PitchAura login"
     
     return render_template('auth/login.html',login_form=login_form,title=title)
 
