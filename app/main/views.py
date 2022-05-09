@@ -10,8 +10,11 @@ from ..models import  User, Pitch, Comment, Upvote, Downvote
 @main.route('/')
 def index():
     pitches = Pitch.query.all()
+    health = Pitch.query.filter_by(category='health').all()
+    comedy = Pitch.query.filter_by(category='comedy').all()
+    business = Pitch.query.filter_by(category='business').all()
 
-    return render_template('index.html')
+    return render_template('index.html',health=health,comedy=comedy,business=business,pitches=pitches)
 
 @main.route('/user/<uname>') 
 def profile(uname):
