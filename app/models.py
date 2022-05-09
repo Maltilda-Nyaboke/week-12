@@ -56,9 +56,15 @@ class User(UserMixin,db.Model):
 class Pitch(db.Model):
     __tablename__ = 'pitches'  
     id = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String,nullable=False) 
+    title = db.Column(db.String,nullable=False)
+    pitch = db.Column(db.String(255)) 
     category = db.Column(db.String,nullable=False)
     user_id = db.Column(db.Integer,db.ForeignKey("users.id"))
+    comments = db.relationship('Comment',backref='pitch',lazy="dynamic")
+    upvotes = db.relationship('Upvote',backref='pitch',lazy="dynamic")
+    downvotes = db.relationship('Downvote',backref='pitch',lazy="dynamic")
+
+
 
 
     def save_pitch(self):
@@ -93,13 +99,13 @@ class Comment(db.Model):
 
     @classmethod
     def get_comments(cls,id):
-        comments = Comment.query.filter_by(comments_id=id).all()
+        comments = Comment.query.filter_by(pitch_id=id).all()
         return comments
 
     
 
     def __repr__(self):
-        return f'Pitch {self.category}'       
+        return f'Comment {self.comment}'       
 
 
 
@@ -110,16 +116,22 @@ class Upvote(db.Model):
     pitch_id = db.Column(db.Integer,db.ForeignKey("pitch.id"),nullable=False)
     user_id = db.Column(db.Integer,db.ForeignKey("users.id"),nullable=False)
 
-    def save_pitch(self):
+    def save_upvote(self):
         db.session.add(self)
         db.session.commit()
 
-    def delete_pitch(self):
+    def delete_upvote(self):
         db.session.delete(self)
         db.session.commit()
 
+    @classmethod
+    def get_upvotes(cls,id):
+        upvotes = Upvote.query.filter_by(pitch_id=id).all()
+        return upvotes   
+
+
     def __repr__(self):
-        return f'Pitch {self.category}'       
+        return f'Upvote {self.votes}'       
 
 
 
@@ -131,13 +143,20 @@ class Downvote(db.Model):
     pitch_id = db.Column(db.Integer,db.ForeignKey("pitch.id"),nullable=False)
     user_id = db.Column(db.Integer,db.ForeignKey("users.id"),nullable=False)             
 
-    def save_pitch(self):
+    def save_downvote(self):
         db.session.add(self)
         db.session.commit()
 
-    def delete_pitch(self):
+    def delete_downvote(self):
         db.session.delete(self)
         db.session.commit()
 
+
+    @classmethod
+    def get_downvotes(cls,id):
+        downvotes = Upvote.query.filter_by(pitch_id=id).all()
+        return downvotes   
+
+
     def __repr__(self):
-        return f'Pitch {self.category}'       
+        return f'Downvote {self.votes}'       
